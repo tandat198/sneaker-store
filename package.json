@@ -9,7 +9,6 @@
         "@testing-library/user-event": "^7.1.2",
         "antd": "^4.3.4",
         "craco-less": "^1.17.0",
-        "json-server": "^0.16.1",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-fade-in": "^1.1.0",
@@ -17,7 +16,6 @@
         "react-scripts": "3.4.1"
     },
     "scripts": {
-        "dev": "json-server --watch db.json --port 3004",
         "start": "craco start",
         "build": "craco build",
         "test": "craco test",
