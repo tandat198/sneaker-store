@@ -41,13 +41,7 @@ class App extends React.Component {
                         <div className='list-title'>
                             <span>Tablet nổi bật</span>
                         </div>
-                        <div className='tablets-container'>
-                            {/* <FadeIn className='card'>
-                                    <Card key={id} hoverable cover={<img alt={name} src={thumbnail} />}>
-                                        <Meta title={`${brand} ${name}`} description={`${parseInt(p).toLocaleString()}`} />
-                                    </Card>
-                                </FadeIn> */}
-                        </div>
+                        <div className='tablets-container'></div>
                     </div>
                 </div>
 
