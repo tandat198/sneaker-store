@@ -1,9 +1,8 @@
 import React from "react";
 import "./App.less";
-import { Card, Divider, Breadcrumb, Button, InputNumber } from "antd";
-import FadeIn from "react-fade-in";
-
-const { Meta } = Card;
+import { Divider } from "antd";
+import OrderPage from "./pages/OrderPage";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 
 class App extends React.Component {
     state = { phones: [], tablets: [], phone: {}, tablet: {} };
@@ -19,9 +18,13 @@ class App extends React.Component {
                         <div className='right-nav'>
                             <a href='/phones'>Smartphone</a>
                             <a href='/tablets'>Tablet</a>
+                            <a href='/'>
+                                <ShoppingCartOutlined style={{ fontSize: "2rem" }} />
+                            </a>
                         </div>
                     </div>
                 </div>
+                <OrderPage />
                 {/* Home Page */}
                 <div className='container product-container'>
                     <div className='phone-list'>
