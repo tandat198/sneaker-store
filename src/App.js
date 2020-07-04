@@ -1,142 +1,65 @@
 import React from "react";
 import "./App.less";
-import { Divider } from "antd";
+import { Divider, Button, Card } from "antd";
 import OrderPage from "./pages/OrderPage";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import axios from "axios";
+import FadeIn from "react-fade-in";
+import CardLoader from "./components/CardLoader";
+import Header from "./components/Header";
+import Homepage from "./pages/Homepage";
+import PhonePage from "./pages/PhonePage";
+import TabletPage from "./pages/TabletPage";
+import ProductInfo from "./pages/ProductInfo";
+
+const { Meta } = Card;
 
 class App extends React.Component {
-    state = { phones: [], tablets: [], phone: {}, tablet: {} };
+    state = { phones: [], tablets: [], phone: {}, tablet: {}, errors: {}, isLoading: false };
+    getSmartphone = async () => {
+        try {
+            this.setState({ isLoading: true });
+            const res = await axios.get(`https://crm-dnt.herokuapp.com/api/products?category=smartphone`);
+            this.setState({ phones: res.data, isLoading: false });
+        } catch (error) {
+            const errors = {
+                getPhones: "fail",
+            };
+            this.setState({ errors });
+        }
+    };
+    getTablet = async () => {
+        try {
+            this.setState({ isLoading: true });
+            const res = await axios.get(`https://crm-dnt.herokuapp.com/api/products?category=tablet`);
+            this.setState({ tablets: res.data, isLoading: false });
+        } catch (error) {
+            const errors = {
+                getTables: "fail",
+            };
+            this.setState({ errors });
+        }
+    };
+    componentDidMount() {
+        this.getSmartphone();
+        this.getTablet();
+    }
 
     render() {
         return (
             <>
-                <div className='header'>
-                    <div className='container header-container'>
-                        <div className='logo'>
-                            <a href='/'>Mobile Store</a>
-                        </div>
-                        <div className='right-nav'>
-                            <a href='/phones'>Smartphone</a>
-                            <a href='/tablets'>Tablet</a>
-                            <a href='/'>
-                                <ShoppingCartOutlined style={{ fontSize: "2rem" }} />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <OrderPage />
-                {/* Home Page */}
-                <div className='container product-container'>
-                    <div className='phone-list'>
-                        <div className='list-title'>
-                            <span>Điện thoại nổi bật</span>
-                        </div>
-                        <div className='phones-container'>
-                            {/* <FadeIn className='card'>
-                                    <Card key={id} hoverable cover={<img alt={name} src={thumbnail} />}>
-                                        <Meta title={`${brand} ${name}`} description={`${parseInt(p).toLocaleString()}`} />
-                                    </Card>
-                                </FadeIn> */}
-                        </div>
-                    </div>
-                    <Divider dashed />
-                    <div className='tablet-list'>
-                        <div className='list-title'>
-                            <span>Tablet nổi bật</span>
-                        </div>
-                        <div className='tablets-container'></div>
-                    </div>
-                </div>
+                <Header />
+                {/* <OrderPage /> */}
+                <Homepage />
 
                 {/* Phone Page */}
-                {/* <div className='all-phones'>
-                    <div className='container all-phones-container'>
-                        <Breadcrumb>
-                            <Breadcrumb.Item>
-                                <a href='/'>Home</a>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>
-                                <a href='/phones'>Phones</a>
-                            </Breadcrumb.Item>
-                        </Breadcrumb>
-                        <Divider />
-                        <div className='phones-container'>
-                            {this.state.phones.map(({ id, name, brand, thumbnail, price: p }) => (
-                                <FadeIn className='card'>
-                                    <Card key={id} hoverable cover={<img alt={name} src={thumbnail} />}>
-                                        <Meta title={`${brand} ${name}`} description={`${parseInt(p).toLocaleString()}`} />
-                                    </Card>
-                                </FadeIn>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                <PhonePage />
 
                 {/* Tablets Page */}
-                {/* <div className='all-tablets'>
-                    <div className='container all-tablets-container'>
-                        <Breadcrumb>
-                            <Breadcrumb.Item>
-                                <a href='/'>Home</a>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>
-                                <a href='/tablets'>Tablets</a>
-                            </Breadcrumb.Item>
-                        </Breadcrumb>
-                        <Divider />
-                        <div className='tablets-container'>
-                            {this.state.tablets.map(({ id, name, brand, thumbnail, price: p }) => (
-                                <FadeIn className='card'>
-                                    <Card key={id} hoverable cover={<img alt={name} src={thumbnail} />}>
-                                        <Meta title={`${brand} ${name}`} description={`${parseInt(p).toLocaleString()}`} />
-                                    </Card>
-                                </FadeIn>
-                            ))}
-                        </div>
-                    </div>
-                </div> */}
+                <TabletPage />
 
                 {/* Product Info */}
-                {/* <div className='product-item'>
-                    <div className='container product-container'>
-                        <Breadcrumb>
-                            <Breadcrumb.Item>
-                                <a href='/'>Home</a>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>
-                                <a href='/phones'>Phones</a>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>
-                                <a href='/'>{phone.name}</a>
-                            </Breadcrumb.Item>
-                        </Breadcrumb>
-                        <Divider />
-                        <div className='info'>
-                            <div className='basic-info'>
-                                <div className='product-img'>
-                                    <img src={phone.imageUrl} alt={phone.name} />
-                                </div>
-                                <div className='basic-info-wp'>
-                                    <span>{`${phone.brand} ${phone.name}`}</span>
-                                    <span>{parseInt(phone.price).toLocaleString()}</span>
-                                    <div className='add-to-cart'>
-                                        <div className='quantity'>
-                                            <InputNumber min={1} max={10} defaultValue={1} />
-                                        </div>
-                                        <Button type='primary'>Add To Cart</Button>
-                                    </div>
-                                </div>
-                            </div>
-                            <ul className='detail-info'>
-                                <li>Storage: {phone.storage} GB</li>
-                                <li>Memory: {phone.memory} GB</li>
-                                <li>Screen Size: {phone.screenSize} inches</li>
-                                <li>Chipset: {phone.chipset}</li>
-                                <li>OS: {phone.os}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> */}
+                <ProductInfo />
             </>
         );
     }
