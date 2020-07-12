@@ -1,4 +1,5 @@
 import React from "react";
+import "./style.less";
 import { Table, InputNumber, Input, Select } from "antd";
 
 export default class AdminPage extends React.Component {
@@ -31,24 +32,17 @@ export default class AdminPage extends React.Component {
         return (
             <div className='container'>
                 <div>Quản lý sản phẩm</div>
-                <div>
-                    <Button type="primary">
-                      Tạo sản phẩm
-                    </Button>
-                    <Modal
-                      title="Basic Modal"
-                      visible={false}
-                      onOk={this.handleOk}
-                      onCancel={this.handleCancel}
-                    >
-                      <form>
-                         <Input placeholder="Tên sản phẩm" />
-                         <InputNumber min={100000} max={15000000} defaultValue={1000000} />
-                         <Select defaultValue="lucy" style={{ width: 120 }} >
-                              <Option value="jack">Jack</Option>
-                              <Option value="lucy">Lucy</Option>
-                         </Select>
-                      </form>
+                <div className='modal-container'>
+                    <Button type='primary'>Tạo sản phẩm</Button>
+                    <Modal title='Basic Modal' visible={false} onOk={this.handleOk} onCancel={this.handleCancel}>
+                        <form>
+                            <Input placeholder='Tên sản phẩm' />
+                            <InputNumber min={100000} max={15000000} defaultValue={1000000} />
+                            <Select defaultValue='lucy' style={{ width: 120 }}>
+                                <Option value='jack'>Jack</Option>
+                                <Option value='lucy'>Lucy</Option>
+                            </Select>
+                        </form>
                     </Modal>
                 </div>
                 <Table dataSource={dataSource} columns={columns} />
