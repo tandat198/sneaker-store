@@ -1,6 +1,8 @@
 import React from "react";
 import "./style.less";
-import { Table, InputNumber, Input, Select } from "antd";
+import { Table, InputNumber, Input, Select, Button, Modal } from "antd";
+
+const { Option } = Select;
 
 export default class AdminPage extends React.Component {
     render() {
