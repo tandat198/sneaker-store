@@ -1,18 +1,23 @@
 import React, { Component } from "react";
-import { Button, Card, Divider } from "antd";
-import CardLoader from "../../components/CardLoader";
+import { Breadcrumb, Divider, Card } from "antd";
 import FadeIn from "react-fade-in";
 
 const { Meta } = Card;
 
-class HomePage extends Component {
+class SneakersPage extends Component {
     render() {
         return (
-            <div className='container home-page'>
-                <div className='products-container'>
-                    <div className='list-title'>
-                        <span>Sneaker nổi bật</span>
-                    </div>
+            <div className='sneakers-page'>
+                <div className='container main-content'>
+                    <Breadcrumb>
+                        <Breadcrumb.Item>
+                            <a href='/'>Trang chủ</a>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            <a href='/phones'>Sneaker</a>
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
+                    <Divider />
                     <div className='products-list'>
                         <a className='card'>
                             <FadeIn>
@@ -29,14 +34,6 @@ class HomePage extends Component {
                                 </Card>
                             </FadeIn>
                         </a>
-                    </div>
-                </div>
-                <Divider dashed />
-                <div className='products-container'>
-                    <div className='list-title'>
-                        <span>Clothing nổi bật</span>
-                    </div>
-                    <div className='products-list'>
                         <a className='card'>
                             <FadeIn>
                                 <Card
@@ -48,7 +45,7 @@ class HomePage extends Component {
                                         />
                                     }
                                 >
-                                    <Meta title='Adidas Ultra Boost' description='1450000' />
+                                    <Meta title='Adidas Ultra Boost' description='1990000' />
                                 </Card>
                             </FadeIn>
                         </a>
@@ -59,4 +56,4 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default SneakersPage;

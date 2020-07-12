@@ -1,51 +1,39 @@
 import React, { Component } from "react";
-import { Breadcrumb, Divider, InputNumber, Button } from "antd";
+import "./style.less";
+import { Breadcrumb, Divider, Button } from "antd";
 
 class ProductInfo extends Component {
     state = { products: [] };
     render() {
         return (
             <div className='product-item'>
-                {this.state.products.map((product) => (
-                    <div className='container product-container' key={product.id}>
-                        <Breadcrumb>
-                            <Breadcrumb.Item>
-                                <a href='/'>Home</a>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>
-                                <a href='/phones'>Phones</a>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>
-                                <a href='/'>{product.name}</a>
-                            </Breadcrumb.Item>
-                        </Breadcrumb>
-                        <Divider />
-                        <div className='info'>
-                            <div className='basic-info'>
-                                <div className='product-img'>
-                                    <img src={product.imageUrl} alt={product.name} />
-                                </div>
-                                <div className='basic-info-wp'>
-                                    <span>{`${product.brand} ${product.name}`}</span>
-                                    <span>{parseInt(product.price).toLocaleString()}</span>
-                                    <div className='add-to-cart'>
-                                        <div className='quantity'>
-                                            <InputNumber min={1} max={10} defaultValue={1} />
-                                        </div>
-                                        <Button type='primary'>Add To Cart</Button>
-                                    </div>
-                                </div>
-                            </div>
-                            <ul className='detail-info'>
-                                <li>Storage: {product.storage} GB</li>
-                                <li>Memory: {product.memory} GB</li>
-                                <li>Screen Size: {product.screenSize} inches</li>
-                                <li>Chipset: {product.chipset}</li>
-                                <li>OS: {product.os}</li>
-                            </ul>
+                <div className='container product-container'>
+                    <Breadcrumb>
+                        <Breadcrumb.Item>
+                            <a href='/'>Home</a>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            <a href='/phones'>Phones</a>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            <a href='/'>Air Force One</a>
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
+                    <Divider />
+                    <div className='info'>
+                        <div className='basic-info'>
+                            <img
+                                src='https://product.hstatic.net/1000361048/product/air-jordan-1-low-older-shoe-xlzjc6_dbdb626cd5844ac69599e606908d4174_master.jpg'
+                                alt=''
+                            />
                         </div>
+                        <ul className='detail-info'>
+                            <h3 className='product-name'>Air Force One</h3>
+                            <span className='product-price'>1990000</span>
+                            <Button type='primary'>Thêm vào giỏ</Button>
+                        </ul>
                     </div>
-                ))}
+                </div>
             </div>
         );
     }
