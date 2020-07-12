@@ -20,7 +20,7 @@ class HomePage extends Component {
                                     hoverable
                                     cover={
                                         <img
-                                            alt=''
+                                            alt='Adidas Ultra Boost'
                                             src='https://product.hstatic.net/1000361048/product/air-jordan-1-low-older-shoe-xlzjc6_dbdb626cd5844ac69599e606908d4174_master.jpg'
                                         />
                                     }
