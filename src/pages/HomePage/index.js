@@ -1,11 +1,19 @@
 import React, { Component } from "react";
-import { Button, Card, Divider } from "antd";
+import { Card, Divider } from "antd";
 import CardLoader from "../../components/CardLoader";
 import FadeIn from "react-fade-in";
+import { Link } from "react-router-dom";
+import { getSneakerStart, getClothingStart } from "../../redux/actions";
+import { connect } from "react-redux";
 
 const { Meta } = Card;
 
 class HomePage extends Component {
+    componentDidMount() {
+        this.props.getSneakersReq();
+        this.props.getClothingsReq();
+    }
+
     render() {
         return (
             <div className='container home-page'>
@@ -13,22 +21,21 @@ class HomePage extends Component {
                     <div className='list-title'>
                         <span>Sneaker nổi bật</span>
                     </div>
+
                     <div className='products-list'>
-                        <a className='card'>
-                            <FadeIn>
-                                <Card
-                                    hoverable
-                                    cover={
-                                        <img
-                                            alt=''
-                                            src='https://product.hstatic.net/1000361048/product/air-jordan-1-low-older-shoe-xlzjc6_dbdb626cd5844ac69599e606908d4174_master.jpg'
-                                        />
-                                    }
-                                >
-                                    <Meta title='Adidas Ultra Boost' description='1450000' />
-                                </Card>
-                            </FadeIn>
-                        </a>
+                        {this.props.isLoading ? (
+                            <CardLoader numberOfCard={8} />
+                        ) : (
+                            this.props.sneakers.map((seaker) => (
+                                <Link className='card' to={`/sneakers/${seaker.id}`}>
+                                    <FadeIn>
+                                        <Card hoverable cover={<img alt='' src={seaker.thumbnailUrl} />}>
+                                            <Meta title={seaker.name} description={seaker.price} />
+                                        </Card>
+                                    </FadeIn>
+                                </Link>
+                            ))
+                        )}
                     </div>
                 </div>
                 <Divider dashed />
@@ -37,26 +44,36 @@ class HomePage extends Component {
                         <span>Clothing nổi bật</span>
                     </div>
                     <div className='products-list'>
-                        <a className='card'>
-                            <FadeIn>
-                                <Card
-                                    hoverable
-                                    cover={
-                                        <img
-                                            alt=''
-                                            src='https://product.hstatic.net/1000361048/product/air-jordan-1-low-older-shoe-xlzjc6_dbdb626cd5844ac69599e606908d4174_master.jpg'
-                                        />
-                                    }
-                                >
-                                    <Meta title='Adidas Ultra Boost' description='1450000' />
-                                </Card>
-                            </FadeIn>
-                        </a>
+                        {this.props.CardLoader ? (
+                            <CardLoader numberOfCard={8} />
+                        ) : (
+                            this.props.clothings.map((clothing) => (
+                                <Link className='card' to={`/clothings/${clothing.id}`}>
+                                    <FadeIn>
+                                        <Card hoverable cover={<img alt='' src={clothing.thumbnailUrl} />}>
+                                            <Meta title={clothing.name} description={clothing.price} />
+                                        </Card>
+                                    </FadeIn>
+                                </Link>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
         );
     }
 }
-
-export default HomePage;
+const mapStateToProps = (state) => {
+    return {
+        sneakers: state.sneakers,
+        clothings: state.clothings,
+        isLoading: state.isLoading,
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getSneakersReq: () => dispatch(getSneakerStart(4, 1)),
+        getClothingsReq: () => dispatch(getClothingStart()),
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
